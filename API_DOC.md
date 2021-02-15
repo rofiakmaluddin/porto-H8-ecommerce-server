@@ -207,7 +207,7 @@ Response:
 }
 ```
 
-### DELETE /tasks/:id
+### DELETE /products/:id
 
 description: 
   delete product by id
@@ -225,6 +225,6 @@ Response:
 
 ```json
 {
-    "message": "task has been deleted",
+    "message": "product has been deleted",
 }
 ```
