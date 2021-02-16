@@ -17,8 +17,10 @@ const errHandler = (err,req,res,next) => {
       errors.push(e)
     })
     status = 400
+  } else {
+    errors.push('something wrong')
   }
-
+  console.log(errors);
   res.status(status).json(errors)
 }
 

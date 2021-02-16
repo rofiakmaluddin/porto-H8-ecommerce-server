@@ -1,5 +1,4 @@
 const {Product} = require('../models')
-const product = require('../models/product')
 
 class ProductController{
   static add (req,res,next){
@@ -10,14 +9,16 @@ class ProductController{
       .then(product => {
         res.status(201).json(product)
       })
-      .catch(err ={
+      .catch(err => {
         next(err)
       })
   }
   static getAll (req,res,next){
     Product
-      .findAll({include: User})
+      // .findAll({include: [User]})
+      .findAll()
       .then(products => {
+        console.log('masuk getAll >>>>>>');
         res.status(200).json(products)
       })
       .catch(err => {
@@ -27,7 +28,8 @@ class ProductController{
   static getById (req,res,next){
     const id = +req.params.id
     Product
-      .findByPk(id, {include: User})
+      // .findByPk(id, {include: User})
+      .findByPk(id)
       .then(product => {
         res.status(200).json(product)
       })
@@ -54,7 +56,7 @@ class ProductController{
     const id = +req.params.id
     Product
       .destroy({where:{id}})
-      .then(res => {
+      .then(product => {
         res.status(200).json({message: 'Product has been deleted'})
       })
       .catch(err => {
