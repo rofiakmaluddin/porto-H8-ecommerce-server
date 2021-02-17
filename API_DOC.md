@@ -7,7 +7,6 @@ List of available endpoints:
 - `GET /products`
 - `GET /products/:id`
 - `PUT /products/:id`
-- `PATCH /products/:id`
 - `DELETE /products/:id`
 
 
@@ -152,40 +151,6 @@ Request:
     "name": "string",
     "img_url": "string",
     "price": "integer",
-    "stock": "integer"
-}
-```
-
-Response:
-
-- status: 200
-- body:
-
-```json
-{
-    "id": "integer",
-    "name": "string",
-    "img_url": "string",
-    "price": "integer",
-    "stock": "integer",
-    "updatedAt": "2021-02-13T15:03:01.876Z",
-    "createdAt": "2021-02-13T15:03:01.876Z"
-}
-```
-
-### PATCH /products/:id
-
-description: 
-  change product's stock
-
-Request:
-
-- headers: access_token (string)
-- params: 
-  - id: "integer" required
-- body: 
-```json
-{
     "stock": "integer"
 }
 ```
