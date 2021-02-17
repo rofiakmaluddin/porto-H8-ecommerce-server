@@ -2,10 +2,10 @@ const {Product} = require('../models')
 
 class ProductController{
   static add (req,res,next){
-    const {name,img_url,price,stock} = req.body
+    const {name,img_url,price,stock,category} = req.body
     const UserId = req.user
     Product
-      .create({name,img_url,price,stock,UserId})
+      .create({name,img_url,price,stock,category,UserId})
       .then(product => {
         res.status(201).json(product)
       })
@@ -39,9 +39,9 @@ class ProductController{
   }
   static update (req,res,next){
     const id = +req.params.id
-    const {name,img_url,price,stock} = req.body
+    const {name,img_url,price,stock,category} = req.body
     Product
-      .update({name,img_url,price,stock},{where:{id},returning: true})
+      .update({name,img_url,price,stock,category},{where:{id},returning: true})
       .then(product => {
         res.status(200).json(product)
       })

@@ -14,7 +14,8 @@ describe('POST /products', function() {
       name: 'sepatu',
       img_url: 'qwerty',
       price: 500000,
-      stock: 30
+      stock: 30,
+      category: 'Fashion'
     }
     let access_token = createAccessToken({
       id: 1,
@@ -33,6 +34,7 @@ describe('POST /products', function() {
         expect(res.body).toHaveProperty('img_url')
         expect(res.body).toHaveProperty('price')
         expect(res.body).toHaveProperty('stock')
+        expect(res.body).toHaveProperty('category')
         expect(res.body).toHaveProperty('createdAt')
         expect(res.body).toHaveProperty('updatedAt')
         expect(typeof res.body.id).toEqual('number')
@@ -40,6 +42,7 @@ describe('POST /products', function() {
         expect(res.body.img_url).toEqual(body.img_url)
         expect(res.body.price).toEqual(body.price)
         expect(res.body.stock).toEqual(body.stock)
+        expect(res.body.category).toEqual(body.category)
         expect(typeof res.body.createdAt).toEqual('string')
         expect(typeof res.body.updatedAt).toEqual('string')
 
@@ -85,6 +88,7 @@ describe('GET /products/:id', function() {
         expect(res.body).toHaveProperty('img_url')
         expect(res.body).toHaveProperty('price')
         expect(res.body).toHaveProperty('stock')
+        expect(res.body).toHaveProperty('category')
         expect(res.body).toHaveProperty('createdAt')
         expect(res.body).toHaveProperty('updatedAt')
         expect(typeof res.body.id).toEqual('number')
@@ -101,7 +105,8 @@ describe('PUT /products/:id', function() {
       name: 'baju',
       img_url: 'asdfg',
       price: 300000,
-      stock: 20
+      stock: 20,
+      category: 'Fashion'
     }
     let access_token = createAccessToken({
       id: 1,
@@ -120,6 +125,7 @@ describe('PUT /products/:id', function() {
         expect(res.body[1][0]).toHaveProperty('img_url')
         expect(res.body[1][0]).toHaveProperty('price')
         expect(res.body[1][0]).toHaveProperty('stock')
+        expect(res.body[1][0]).toHaveProperty('category')
         expect(res.body[1][0]).toHaveProperty('createdAt')
         expect(res.body[1][0]).toHaveProperty('updatedAt')
         expect(typeof res.body[1][0].id).toEqual('number')
@@ -127,6 +133,7 @@ describe('PUT /products/:id', function() {
         expect(res.body[1][0].img_url).toEqual(body.img_url)
         expect(res.body[1][0].price).toEqual(body.price)
         expect(res.body[1][0].stock).toEqual(body.stock)
+        expect(res.body[1][0].category).toEqual(body.category)
         expect(typeof res.body[1][0].createdAt).toEqual('string')
         expect(typeof res.body[1][0].updatedAt).toEqual('string')
 
