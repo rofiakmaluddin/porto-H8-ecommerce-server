@@ -2,6 +2,7 @@ const {Product} = require('../models')
 
 class ProductController{
   static add (req,res,next){
+    console.log(req.body);
     const {name,img_url,price,stock,category} = req.body
     const UserId = req.user
     Product
@@ -10,18 +11,20 @@ class ProductController{
         res.status(201).json(product)
       })
       .catch(err => {
+        console.log(err);
         next(err)
       })
   }
   static getAll (req,res,next){
     Product
       // .findAll({include: [User]})
-      .findAll()
+      .findAll({order: [['id', 'ASC']]})
       .then(products => {
         console.log('masuk getAll >>>>>>');
         res.status(200).json(products)
       })
       .catch(err => {
+        console.log(err);
         next(err)
       })
   }
@@ -34,6 +37,7 @@ class ProductController{
         res.status(200).json(product)
       })
       .catch(err => {
+        console.log(err);
         next(err)
       })
   }
@@ -46,6 +50,7 @@ class ProductController{
         res.status(200).json(product)
       })
       .catch(err => {
+        console.log(err);
         next(err)
       })
   }
@@ -60,6 +65,7 @@ class ProductController{
         res.status(200).json({message: 'Product has been deleted'})
       })
       .catch(err => {
+        console.log(err);
         next(err)
       })
   }
