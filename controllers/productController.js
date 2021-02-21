@@ -34,7 +34,11 @@ class ProductController{
       // .findByPk(id, {include: User})
       .findByPk(id)
       .then(product => {
-        res.status(200).json(product)
+        if (!product) {
+          throw {name: 'not found', message: 'product is not found', status: 404}
+        } else {
+          res.status(200).json(product)
+        }
       })
       .catch(err => {
         console.log(err);
@@ -47,7 +51,11 @@ class ProductController{
     Product
       .update({name,img_url,price,stock,category},{where:{id},returning: true})
       .then(product => {
-        res.status(200).json(product)
+        if (!product) {
+          throw {name: 'not found', message: 'product is not found', status: 404}
+        } else {
+          res.status(200).json(product)
+        }
       })
       .catch(err => {
         console.log(err);
@@ -62,7 +70,11 @@ class ProductController{
     Product
       .destroy({where:{id}})
       .then(product => {
-        res.status(200).json({message: 'Product has been deleted'})
+        if (!product) {
+          throw {name: 'not found', message: 'product is not found', status: 404}
+        } else {
+          res.status(200).json({message: 'Product has been deleted'})
+        }
       })
       .catch(err => {
         console.log(err);

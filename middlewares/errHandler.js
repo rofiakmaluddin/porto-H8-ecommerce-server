@@ -7,6 +7,9 @@ const errHandler = (err,req,res,next) => {
   } else if (err.name === 'auth error'){
     errors.push(err.message)
     status = err.status
+  } else if (err.name === 'not found'){
+    errors.push(err.message)
+    status = err.status
   } else if (err.name === 'SequelizeValidationError'){
     err.errors.forEach(e => {
       errors.push(e)

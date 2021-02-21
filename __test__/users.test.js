@@ -47,7 +47,6 @@ describe('POST /login', function() {
       .send(body)
       .end(function(err, res) {
         if (err) return done(err);
-        console.log(res.body, 'ini <<<<<<');
         expect(res.status).toEqual(401)
         expect(Array.isArray(res.body)).toEqual(true)
         expect(res.body[0]).toEqual('Invalid email or password')

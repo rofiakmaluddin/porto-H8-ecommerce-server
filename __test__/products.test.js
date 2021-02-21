@@ -8,6 +8,8 @@ afterAll((done) => {
   done()
 })
 
+let idProductTest = 0
+
 describe('POST /products', function() {
   it('should return status 201 with created data', function(done) {
     let body = {
@@ -38,6 +40,7 @@ describe('POST /products', function() {
         expect(res.body).toHaveProperty('createdAt')
         expect(res.body).toHaveProperty('updatedAt')
         expect(typeof res.body.id).toEqual('number')
+        idProductTest = res.body.id
         expect(res.body.name).toEqual(body.name)
         expect(res.body.img_url).toEqual(body.img_url)
         expect(res.body.price).toEqual(body.price)
@@ -45,6 +48,31 @@ describe('POST /products', function() {
         expect(res.body.category).toEqual(body.category)
         expect(typeof res.body.createdAt).toEqual('string')
         expect(typeof res.body.updatedAt).toEqual('string')
+
+        done();
+      });
+  });
+  it('should return error message', function(done) {
+    let body = {
+      name: '',
+      img_url: '',
+      price: '',
+      stock: '',
+      category: ''
+    }
+    let access_token = createAccessToken({
+      id: 1,
+      email: 'admin@mail.com'
+    })
+    request(app)
+      .post('/products')
+      .send(body)
+      .set('access_token', access_token)
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.status).toEqual(400)
+        expect(Array.isArray(res.body)).toEqual(true)
+        expect(res.body.length).not.toEqual(0)
 
         done();
       });
@@ -68,6 +96,23 @@ describe('GET /products', function() {
         done();
       });
   });
+  it('should return error message', function(done) {
+    let access_token = createAccessToken({
+      id: 0,
+      email: ''
+    })
+    request(app)
+      .get('/products')
+      .set('access_token', access_token)
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.status).toEqual(400)
+        expect(Array.isArray(res.body)).toEqual(true)
+        expect(res.body.length).not.toEqual(0)
+        
+        done();
+      });
+  });
 });
 
 describe('GET /products/:id', function() {
@@ -77,7 +122,7 @@ describe('GET /products/:id', function() {
       email: 'admin@mail.com'
     })
     request(app)
-      .get(`/products/${1}`)
+      .get(`/products/${idProductTest}`)
       .set('access_token', access_token)
       .end(function(err, res) {
         if (err) return done(err);
@@ -97,6 +142,22 @@ describe('GET /products/:id', function() {
         done();
       });
   });
+  it('should return error message', function(done) {
+    let access_token = createAccessToken({
+      id: 1,
+      email: 'admin@mail.com'
+    })
+    request(app)
+      .get(`/products/${10000000000}`)
+      .set('access_token', access_token)
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.status).toEqual(404)
+        expect(Array.isArray(res.body)).toEqual(true)
+        expect(res.body.length).not.toEqual(0)
+        done();
+      });
+  });
 });
 
 describe('PUT /products/:id', function() {
@@ -113,7 +174,7 @@ describe('PUT /products/:id', function() {
       email: 'admin@mail.com'
     })
     request(app)
-      .put(`/products/${1}`)
+      .put(`/products/${idProductTest}`)
       .send(body)
       .set('access_token', access_token)
       .end(function(err, res) {
@@ -136,6 +197,31 @@ describe('PUT /products/:id', function() {
         expect(res.body[1][0].category).toEqual(body.category)
         expect(typeof res.body[1][0].createdAt).toEqual('string')
         expect(typeof res.body[1][0].updatedAt).toEqual('string')
+
+        done();
+      });
+  });
+  it('should return error message', function(done) {
+    let body = {
+      name: '',
+      img_url: '',
+      price: '',
+      stock: '',
+      category: ''
+    }
+    let access_token = createAccessToken({
+      id: 1,
+      email: 'admin@mail.com'
+    })
+    request(app)
+      .put(`/products/${1}`)
+      .send(body)
+      .set('access_token', access_token)
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.status).toEqual(400)
+        expect(Array.isArray(res.body)).toEqual(true)
+        expect(res.body.length).not.toEqual(0)
 
         done();
       });
@@ -175,13 +261,13 @@ describe('PUT /products/:id', function() {
 // });
 
 describe('DELETE /products/:id', function() {
-  it('should return status 200 with data', function(done) {
+  it('should return status 200 with success message', function(done) {
     let access_token = createAccessToken({
       id: 1,
       email: 'admin@mail.com'
     })
     request(app)
-      .delete(`/products/${10}`)
+      .delete(`/products/${idProductTest}`)
       .set('access_token', access_token)
       .end(function(err, res) {
         if (err) return done(err);
@@ -189,6 +275,22 @@ describe('DELETE /products/:id', function() {
         expect(typeof res.body).toEqual('object')
         expect(res.body).toHaveProperty('message')
         expect(typeof res.body.message).toEqual('string')
+        done();
+      });
+  });
+  it('should return error message', function(done) {
+    let access_token = createAccessToken({
+      id: 1,
+      email: 'admin@mail.com'
+    })
+    request(app)
+      .delete(`/products/${10000}`)
+      .set('access_token', access_token)
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.status).toEqual(404)
+        expect(Array.isArray(res.body)).toEqual(true)
+        expect(res.body.length).not.toEqual(0)
         done();
       });
   });
