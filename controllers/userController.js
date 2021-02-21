@@ -8,9 +8,9 @@ class UserController{
     User
       .findOne({where:{email}})
       .then(user => {
-        if(!user) throw {name: 'login error', message: 'Invalid email or password'}
+        if(!user) throw {name: 'login error', message: 'Invalid email or password', status: 401}
         const comparedPass = compare(password,user.password)
-        if(!comparedPass) throw {name: 'login error', message: 'Invalid email or password'}
+        if(!comparedPass) throw {name: 'login error', message: 'Invalid email or password', status: 401}
         const {id,email} = user
         const access_token = createAccessToken({id,email})
         res.status(200).json({access_token})
