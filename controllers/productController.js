@@ -2,7 +2,6 @@ const {Product} = require('../models')
 
 class ProductController{
   static add (req,res,next){
-    console.log(req.body);
     const {name,img_url,price,stock,category} = req.body
     const UserId = req.user
     Product
