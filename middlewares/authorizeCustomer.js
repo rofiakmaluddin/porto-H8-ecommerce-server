@@ -6,6 +6,9 @@ const authorizeCustomer = async (req,res,next) => {
     if (!user) {
       return next({name: 'auth error', message: 'not authorized', status: 401})
     }
+    // if (user.role !== 'customer') {
+    //   return next({name: 'auth error', message: 'not authorized', status: 401})
+    // }
     next()
   } catch (error) {
     next(error)

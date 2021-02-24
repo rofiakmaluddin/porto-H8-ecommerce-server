@@ -58,7 +58,7 @@ describe('POST /wishlists', function() {
       .set('access_token', access_token)
       .end(function(err, res) {
         if (err) return done(err);
-        expect(res.status).toEqual(400)
+        expect(res.status).toEqual(500)
         expect(Array.isArray(res.body)).toEqual(true)
         expect(res.body.length).not.toEqual(0)
 

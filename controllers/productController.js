@@ -10,7 +10,6 @@ class ProductController{
         res.status(201).json(product)
       })
       .catch(err => {
-        console.log(err);
         next(err)
       })
   }
@@ -23,7 +22,6 @@ class ProductController{
         res.status(200).json(products)
       })
       .catch(err => {
-        console.log(err);
         next(err)
       })
   }
@@ -40,7 +38,6 @@ class ProductController{
         }
       })
       .catch(err => {
-        console.log(err);
         next(err)
       })
   }
@@ -57,13 +54,9 @@ class ProductController{
         }
       })
       .catch(err => {
-        console.log(err);
         next(err)
       })
   }
-  // static changeStock (req,res,next){
-    
-  // }
   static destroy (req,res,next){
     const id = +req.params.id
     Product
@@ -76,7 +69,6 @@ class ProductController{
         }
       })
       .catch(err => {
-        console.log(err);
         next(err)
       })
   }

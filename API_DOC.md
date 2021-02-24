@@ -266,8 +266,7 @@ Request:
 ```json
 {
     "UserId": "integer",
-    "ProductId": "integer",
-    "quantity": "integer"
+    "ProductId": "integer"
 }
 ```
 

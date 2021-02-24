@@ -13,9 +13,7 @@ let idCartTest = 0
 describe('POST /carts', function() {
   it('should return status 201 with created data', function(done) {
     let body = {
-      UserId: 1,
-      ProductId: 1,
-      quantity: 1
+      ProductId: 1
     }
     let access_token = createAccessToken({
       id: 1,
@@ -38,9 +36,7 @@ describe('POST /carts', function() {
         expect(res.body).toHaveProperty('updatedAt')
         expect(typeof res.body.id).toEqual('number')
         idCartTest = res.body.id
-        expect(res.body.UserId).toEqual(body.UserId)
         expect(res.body.ProductId).toEqual(body.ProductId)
-        expect(res.body.quantity).toEqual(body.quantity)
         expect(res.body.purchased).toEqual(false)
         expect(typeof res.body.createdAt).toEqual('string')
         expect(typeof res.body.updatedAt).toEqual('string')
@@ -64,7 +60,7 @@ describe('POST /carts', function() {
       .set('access_token', access_token)
       .end(function(err, res) {
         if (err) return done(err);
-        expect(res.status).toEqual(400)
+        expect(res.status).toEqual(500)
         expect(Array.isArray(res.body)).toEqual(true)
         expect(res.body.length).not.toEqual(0)
 
@@ -155,7 +151,7 @@ describe('PATCH /carts/:id', function() {
       .set('access_token', access_token)
       .end(function(err, res) {
         if (err) return done(err);
-        expect(res.status).toEqual(400)
+        expect(res.status).toEqual(500)
         expect(Array.isArray(res.body)).toEqual(true)
         expect(res.body.length).not.toEqual(0)
 

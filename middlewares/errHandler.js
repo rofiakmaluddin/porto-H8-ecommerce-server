@@ -23,7 +23,7 @@ const errHandler = (err,req,res,next) => {
   } else {
     errors.push('something wrong')
   }
-  console.log(errors);
+  // console.log(errors, 'err di err handler');
   res.status(status).json(errors)
 }
 

@@ -1,5 +1,9 @@
 const request = require('supertest')
 const app = require('../app')
+const { User } = require('../models')
+const {sequelize} = require('../models')
+
+let userIdTest = 0
 
 describe('POST /login', function() {
   it('should return status 200 with access token', function(done) {
@@ -72,11 +76,13 @@ describe('POST /register', function() {
         expect(res.body).toHaveProperty('id')
         expect(res.body).toHaveProperty('email')
         expect(typeof res.body.id).toEqual('number')
+        userIdTest = res.body.id
         expect(typeof res.body.email).toEqual('string')
 
         done();
       });
   });
+  
   it('should return message Invalid email format', function(done) {
     let body = {
       email:'customermail',
@@ -89,7 +95,7 @@ describe('POST /register', function() {
         if (err) return done(err);
         expect(res.status).toEqual(400)
         expect(Array.isArray(res.body)).toEqual(true)
-        expect(res.body[0]).toEqual('Invalid email format')
+        expect(res.body[0].message).toEqual('Invalid email format')
 
         done();
       });
@@ -104,9 +110,9 @@ describe('POST /register', function() {
       .send(body)
       .end(function(err, res) {
         if (err) return done(err);
-        expect(res.status).toEqual(401)
+        expect(res.status).toEqual(400)
         expect(Array.isArray(res.body)).toEqual(true)
-        expect(res.body[0]).toEqual('Password must be at least 6 characters')
+        expect(res.body[0].message).toEqual('Password must be at least 6 characters')
         
         done();
       });
@@ -167,3 +173,18 @@ describe('POST /loginCustomer', function() {
       });
   });
 });
+
+afterAll((done) => {
+  User
+    .destroy({where:{email:'customer@mail.com'}})
+    .then(user => {
+      console.log('user has been deleted', 'ini >>>> afterAllTest');
+      sequelize.close()
+      done()
+    })
+    .catch(err => {
+      console.log(err, '>>>> afterAllTest');
+      sequelize.close()
+      done()
+    })
+})

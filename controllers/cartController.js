@@ -1,16 +1,17 @@
-const {Cart} = require('../models')
+const { Cart } = require('../models') 
 
 class CartController {
   static addToCart (req,res,next) {
     const {ProductId} = req.body
     const UserId = req.user
+    // const quantity = 1
+    // const purchased = false
     Cart
       .create({ProductId,UserId})
       .then(cart => {
         res.status(201).json(cart)
       })
       .catch(err => {
-        console.log(err);
         next(err)
       })
   }
@@ -21,7 +22,6 @@ class CartController {
         res.status(200).json(carts)
       })
       .catch(err => {
-        console.log(err);
         next(err)
       })
   }
@@ -35,10 +35,17 @@ class CartController {
           throw {name: 'not found', message: 'Product is not found in your cart', status: 404}
         } else {
           res.status(200).json(cart)
+          return Product.findByPk(id)
         }
       })
+      .then(product => {
+        let newStock = product.newStock - quantity
+        return Product.update({newStock},{returning: true})
+      })
+      .then(product => {
+        console.log(product);
+      })
       .catch(err => {
-        console.log(err);
         next(err)
       })
   }
@@ -54,7 +61,6 @@ class CartController {
         }
       })
       .catch(err => {
-        console.log(err);
         next(err)
       })
   }
