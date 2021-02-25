@@ -1,4 +1,4 @@
-const {Wishlist} = require('../models')
+const {Wishlist, Product} = require('../models')
 
 class WishlistController {
   static addToWishlist (req,res,next) {
@@ -15,7 +15,10 @@ class WishlistController {
   }
   static getWishlistData (req,res,next) {
     Wishlist
-      .findAll({order: [['id', 'ASC']]})
+      .findAll({
+        order: [['id', 'ASC']],
+        include: [Product]
+      })
       .then(wishlists => {
         res.status(200).json(wishlists)
       })

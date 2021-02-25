@@ -13,8 +13,8 @@ router.post('/loginCustomer', UserController.login)
 router.post('/register', UserController.register)
 
 router.use(authenticate)
+router.get('/products', ProductController.getAll)
 router.post('/products', authorize, ProductController.add)
-router.get('/products', authorize, ProductController.getAll)
 
 router.get('/products/:id', authorize, ProductController.getById)
 router.put('/products/:id', authorize, ProductController.update)

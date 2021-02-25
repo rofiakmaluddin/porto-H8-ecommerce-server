@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       cart.purchased = false
     }
     if (!cart.quantity) {
-      cart.quantity = 1
+      cart.quantity = 0
     }
   });
   return Cart;
