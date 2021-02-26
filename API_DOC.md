@@ -44,6 +44,12 @@ Response:
     "access_token": "jwt string",
 }
 ```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
 
 ### POST /products
 
@@ -77,6 +83,12 @@ Response:
     "stock": "integer",
     "updatedAt": "2021-02-13T15:03:01.876Z",
     "createdAt": "2021-02-13T15:03:01.876Z"
+}
+```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
 }
 ```
 
@@ -116,6 +128,12 @@ Response:
   }
 ]
 ```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
 
 ### GET /products/:id
 
@@ -144,6 +162,12 @@ Response:
     "createdAt": "2021-02-13T15:03:01.876Z"
   }
 ```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
 
 ### PUT /products/:id
 
@@ -164,6 +188,12 @@ Request:
     "stock": "integer"
 }
 ```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
 
 Response:
 
@@ -179,6 +209,12 @@ Response:
     "stock": "integer",
     "updatedAt": "2021-02-13T15:03:01.876Z",
     "createdAt": "2021-02-13T15:03:01.876Z"
+}
+```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
 }
 ```
 
@@ -201,6 +237,12 @@ Response:
 ```json
 {
     "message": "product has been deleted",
+}
+```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
 }
 ```
 
@@ -228,6 +270,13 @@ Response:
     "access_token": "jwt string",
 }
 ```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
+
 ### POST /register
 
 Request:
@@ -253,6 +302,12 @@ Response:
   "email": "string"
 }
 ```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
 
 ### POST /carts
 
@@ -270,6 +325,7 @@ Request:
 }
 ```
 
+
 Response:
 
 - status: 201
@@ -283,6 +339,12 @@ Response:
     "purchased": "boolean",
     "updatedAt": "2021-02-13T15:03:01.876Z",
     "createdAt": "2021-02-13T15:03:01.876Z"
+}
+```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
 }
 ```
 
@@ -362,6 +424,12 @@ Response:
   }
 ]
 ```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
 
 ### PATCH /carts/:id
 
@@ -416,6 +484,12 @@ Response:
               ]
 }
 ```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
 
 ### DELETE /carts/:id
 
@@ -436,6 +510,12 @@ Response:
 ```json
 {
     "message": "product has been deleted from cart",
+}
+```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
 }
 ```
 
@@ -466,6 +546,12 @@ Response:
     "ProductId": "integer",
     "updatedAt": "2021-02-13T15:03:01.876Z",
     "createdAt": "2021-02-13T15:03:01.876Z"
+}
+```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
 }
 ```
 
@@ -541,6 +627,13 @@ Response:
   }
 ]
 ```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
+}
+```
+
 ### DELETE /wishlists/:id
 
 description: 
@@ -560,5 +653,11 @@ Response:
 ```json
 {
     "message": "product has been deleted from wishlist",
+}
+```
+_Response (500 - Internal Server Error)_
+```
+{
+  "message": "Internal Server Error"
 }
 ```
