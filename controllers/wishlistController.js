@@ -4,8 +4,12 @@ class WishlistController {
   static addToWishlist (req,res,next) {
     const {ProductId} = req.body
     const UserId = req.user
-    Wishlist
-      .create({ProductId,UserId})
+    Wishlist.findOne({where:{ProductId}})
+      .then(wishlist => {
+        if (!wishlist) {
+          return Wishlist.create({ProductId,UserId})
+        }
+      })
       .then(wishlist => {
         res.status(201).json(wishlist)
       })

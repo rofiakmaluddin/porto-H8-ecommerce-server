@@ -3,6 +3,15 @@ const app = require('../app');
 const { createAccessToken } = require('../helpers/jwt');
 const {sequelize} = require('../models')
 
+let access_token
+beforeAll((done) => {
+  access_token = createAccessToken({
+    id: 1,
+    email: 'admin@mail.com'
+  })
+  done()
+})
+
 afterAll((done) => {
   sequelize.close()
   done()
@@ -16,10 +25,6 @@ describe('POST /wishlists', function() {
       UserId: 1,
       ProductId: 1,
     }
-    let access_token = createAccessToken({
-      id: 1,
-      email: 'customer@mail.com'
-    })
     request(app)
       .post('/wishlists')
       .send(body)
@@ -48,10 +53,6 @@ describe('POST /wishlists', function() {
       UserId: '',
       ProductId: ''
     }
-    let access_token = createAccessToken({
-      id: 1,
-      email: 'customer@mail.com'
-    })
     request(app)
       .post('/wishlists')
       .send(body)
@@ -69,10 +70,6 @@ describe('POST /wishlists', function() {
 
 describe('GET /wishlists', function() {
   it('should return status 200 with data', function(done) {
-    let access_token = createAccessToken({
-      id: 1,
-      email: 'customer@mail.com'
-    })
     request(app)
       .get('/wishlists')
       .set('access_token', access_token)
@@ -105,10 +102,6 @@ describe('GET /wishlists', function() {
 
 describe('DELETE /wishlists/:id', function() {
   it('should return status 200 with success message', function(done) {
-    let access_token = createAccessToken({
-      id: 1,
-      email: 'customer@mail.com'
-    })
     request(app)
       .delete(`/wishlists/${idCartTest}`)
       .set('access_token', access_token)
@@ -122,10 +115,6 @@ describe('DELETE /wishlists/:id', function() {
       });
   });
   it('should return error message', function(done) {
-    let access_token = createAccessToken({
-      id: 1,
-      email: 'customer@mail.com'
-    })
     request(app)
       .delete(`/wishlists/${10000}`)
       .set('access_token', access_token)

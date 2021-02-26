@@ -51,6 +51,10 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: 'You must input the stock'
         },
+        min: {
+          args: 0,
+          msg: 'Minimum stock is 0'
+        }
       }
     },
     category: {

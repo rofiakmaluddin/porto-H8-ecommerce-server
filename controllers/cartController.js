@@ -4,16 +4,20 @@ class CartController {
   static addToCart (req,res,next) {
     const {ProductId} = req.body
     const UserId = req.user
-    Cart
-      .findOne({ where: {ProductId} })
+    let stock
+    Product.findByPk(ProductId)
+      .then(product => {
+        stock = product.stock
+        return Cart.findOne({ where: {ProductId} })
+      })
       .then(cart => {
         // update
-        if(cart) {
+        if(cart && cart.quantity < stock) {
           let newQuantity = cart.quantity + 1
           return Cart.update({quantity: newQuantity}, { where: {ProductId} });
         }
         // insert
-        else {return Cart.create({ProductId,UserId});}
+        else if (stock > 0) {return Cart.create({ProductId,UserId});}
       })
       .then(cart => {
         res.status(201).json(cart)
@@ -37,10 +41,16 @@ class CartController {
   static updateQuantityCart (req,res,next) {
     const id = +req.params.id
     const {status, ProductId} = req.body
+    let cart
     if (status) {
       Cart.increment('quantity', { where: {id} })
         .then(cart => {
+          cart = cart
           return Product.decrement('stock', { where: {id: ProductId} })
+        })
+        .then(product => {
+          console.log(cart, 'test cart <<<<<');
+          res.status(200).json(cart)
         })
         .catch(err => {
           next(err)
